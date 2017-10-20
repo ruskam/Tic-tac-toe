@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    /*background-image: url('https://source.unsplash.com/kktq8zzmPEo/1600x900');
+    background-size: cover;*/
+    background-color: #141215;
+    color: #ffffff;
+}
+
+#canvas {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+#board {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #141215;
+    min-height: 350px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.cell {
+    background-color: grey;
+    min-width: 100px;
+    min-height: 100px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 3px;
+    line-height: 100px;
+    cursor: pointer;
+}
+
+.cross {
+    background-image: url('http://toastmasters.ru/wp-content/uploads/2016/04/Tic-tac-toe-cross.png');
+    background-size: cover;
+    pointer-events: none;
+    cursor: default;
+}
+
+.nought {
+    background-image: url('http://toastmasters.ru/wp-content/uploads/2016/04/Tic-tac-toe-nought-e1461667111145.png');
+    background-size: cover;
+    pointer-events: none;
+    cursor: default;
+}
+
+#player {
+    text-align: center;
+}
+
+#dialog {
+    display: none;
+}
+
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+    float: none !important;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    text-align: center !important;
+}
