@@ -155,6 +155,9 @@ $(document).ready(function() {
     function attack() {
         console.log('CPU attacks');
         console.log('ttt.userTurnToMove', ttt.userTurnToMove);
+        var opportunityPosition = '';
+        var dangerPosition = '';
+
         ttt.cpuMoveCounter++;
 
         if (ttt.cpuMoveCounter === 1) {
@@ -177,16 +180,50 @@ $(document).ready(function() {
 
         }
 
-        if (ttt.cpuMoveCounter === 3) {
-            if (isCellEmpty('#3')) {
-                makeMove('#3', 'cross');
-            } else if (isCellEmpty('#7')) {
-                makeMove('#7', 'cross');
-            } else if (isCellEmpty('#9')) {
-                makeMove('#9', 'cross');
-            }
+        if (ttt.cpuMoveCounter > 2) {
 
+            dangerPosition = forkAt('nought');
+            opportunityPosition = forkAt('cross');
+            console.log('opportunityPosition', opportunityPosition);
+
+            if (opportunityPosition !== -1) {
+                makeMove(opportunityPosition, 'cross');
+
+            } else {
+                if (dangerPosition !== -1) {
+                    makeMove(dangerPosition, 'cross');
+                } else {
+                    if (isCellEmpty('#3')) {
+                        makeMove('#3', 'cross');
+                    } else if (isCellEmpty('#7')) {
+                        makeMove('#7', 'cross');
+                    } else if (isCellEmpty('#9')) {
+                        makeMove('#9', 'cross');
+                    }
+                }
+            }
         }
+
+        setTimeout(function() {
+            if (checkForWin('cross')) {
+                console.log('checkForWin TRUE');
+                setTimeout(function() {
+                    alert('CPU has won');
+                }, 1);
+                setTimeout(function() {
+                    setup();
+                }, 100);
+            } else if (checkForWin('nought')) {
+                setTimeout(function() {
+                    alert('user has won');
+                }, 1);
+                setTimeout(function() {
+                    setup();
+                }, 100);
+            } else {
+                console.log('checkForWin FALSE');
+            }
+        }, 100);
 
         ttt.userTurnToMove = true;
 
