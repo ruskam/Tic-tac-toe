@@ -68,6 +68,10 @@ body {
     display: none;
 }
 
+.freeze-all-cells {
+    pointer-events: none;
+}
+
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
     float: none !important;
 }
