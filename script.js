@@ -163,18 +163,22 @@ $(document).ready(function() {
         if (ttt.cpuMoveCounter === 1) {
             if (isCellEmpty('#1')) {
                 makeMove('#1', 'cross');
-
             }
         } else {
             console.log('no idea');
         }
 
         if (ttt.cpuMoveCounter === 2) {
-            if (isCellEmpty('#9') && !isCellEmpty('#1') && !isCellEmpty('#3')) {
-                makeMove('#9', 'cross');
+
+            if ($('#1').hasClass('cross') && ($('#2').hasClass('nought') || $('#4').hasClass('nought') || $('#6').hasClass('nought') || $('#8').hasClass('nought'))) {
+                makeMove('#5', 'cross');
+            } else if (5) {
+
             } else if (isCellEmpty('#7')) {
                 makeMove('#7', 'cross');
             } else if (isCellEmpty('#9')) {
+                makeMove('#9', 'cross');
+            } else if (isCellEmpty('#9') && $('#1').hasClass('cross') && $('#3').hasClass('nought')) {
                 makeMove('#9', 'cross');
             }
 
