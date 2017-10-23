@@ -170,8 +170,8 @@ $(document).ready(function() {
         }
 
         if (ttt.cpuMoveCounter === 2) {
-            if (isCellEmpty('#3')) {
-                makeMove('#3', 'cross');
+            if (isCellEmpty('#9') && !isCellEmpty('#1') && !isCellEmpty('#3')) {
+                makeMove('#9', 'cross');
             } else if (isCellEmpty('#7')) {
                 makeMove('#7', 'cross');
             } else if (isCellEmpty('#9')) {
@@ -217,6 +217,13 @@ $(document).ready(function() {
                 setTimeout(function() {
                     alert('user has won');
                 }, 1);
+                setTimeout(function() {
+                    setup();
+                }, 100);
+            } else if (isAllCellsPlayed()) {
+                setTimeout(function() {
+                    alert('draw');
+                }, 100);
                 setTimeout(function() {
                     setup();
                 }, 100);
