@@ -170,10 +170,12 @@ $(document).ready(function() {
 
         if (ttt.cpuMoveCounter === 2) {
 
-            if ($('#1').hasClass('cross') && ($('#2').hasClass('nought') || $('#4').hasClass('nought') || $('#6').hasClass('nought') || $('#8').hasClass('nought'))) {
+            if ($('#1').hasClass('cross') && (
+                $('#2').hasClass('nought') ||
+                $('#4').hasClass('nought') ||
+                $('#6').hasClass('nought') ||
+                $('#8').hasClass('nought'))) {
                 makeMove('#5', 'cross');
-            } else if (5) {
-
             } else if (isCellEmpty('#7')) {
                 makeMove('#7', 'cross');
             } else if (isCellEmpty('#9')) {
@@ -203,6 +205,14 @@ $(document).ready(function() {
                         makeMove('#7', 'cross');
                     } else if (isCellEmpty('#9')) {
                         makeMove('#9', 'cross');
+                    } else if (isCellEmpty('#2')) {
+                        makeMove('#2', 'cross');
+                    } else if (isCellEmpty('#4')) {
+                        makeMove('#4', 'cross');
+                    } else if (isCellEmpty('#6')) {
+                        makeMove('#6', 'cross');
+                    } else if (isCellEmpty('#8')) {
+                        makeMove('#8', 'cross');
                     }
                 }
             }
