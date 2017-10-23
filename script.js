@@ -199,9 +199,9 @@ $(document).ready(function() {
                 if (dangerPosition !== -1) {
                     makeMove(dangerPosition, 'cross');
                 } else {
-                    if (isCellEmpty('#3')) {
+                    if (isCellEmpty('#3') && isCornerClean('#3')) {
                         makeMove('#3', 'cross');
-                    } else if (isCellEmpty('#7')) {
+                    } else if (isCellEmpty('#7') && isCornerClean('#7')) {
                         makeMove('#7', 'cross');
                     } else if (isCellEmpty('#9')) {
                         makeMove('#9', 'cross');
@@ -459,4 +459,21 @@ $(document).ready(function() {
         return false;
     }
 
+    function isCornerClean(cellNumber) {
+        if (cellNumber === '#3') {
+            if ( ($('#2').hasClass('nought') || $('#6').hasClass('nought')) ) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        if (cellNumber === '#7') {
+            if ( ($('#4').hasClass('nought') || $('#8').hasClass('nought')) ) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
 });
