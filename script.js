@@ -3,7 +3,6 @@ $(document).ready(function() {
     var ttt = {
         /* is */
         userTurnToMove: true,
-        userClicked: false,
         step: 0,
         arrayWin: [],
         madeMove: false,
@@ -13,7 +12,7 @@ $(document).ready(function() {
         isUserPlayedGame: false
     };
 
-    console.log('userPlaysCross', ttt.userPlaysCross);
+
     var initialPlayerSelect = function() {
         $("#dialog").dialog({
             closeOnEscape: false,
@@ -30,15 +29,12 @@ $(document).ready(function() {
                 "Play X": function() {
 
                     $(this).dialog("close");
-                    console.log('X selected');
                     ttt.userTurnToMove = true;
                 },
                 "Play O": function() {
                     $(this).dialog("close");
-                    console.log('O selected. CPU playes X, user plays O');
                     ttt.userTurnToMove = false;
                     ttt.userPlaysCross = false;
-                    console.log('ttt.userTurnToMove', ttt.userTurnToMove);
                     attack();
                 }
             },
@@ -54,24 +50,11 @@ $(document).ready(function() {
     };
 
     initialPlayerSelect();
-    //setup();
-    console.log('isUserPlayedGame', ttt.isUserPlayedGame);
+
+    console.log('userPlaysCross', ttt.userPlaysCross);
 
     function setup() {
-        //ttt.isUserCross(userStartsFirst);
-        if (ttt.isUserPlayedGame) {
-            ttt.userPlaysCross = false;
-            ttt.userTurnToMove = false;
-            attack();
-        } else {
-            ttt.userPlaysCross = true;
-            ttt.userTurnToMove = true;
-        }
-        console.log('isUserPlayedGame', ttt.isUserPlayedGame);
 
-
-        ttt.userMoveCounter = 0;
-        ttt.cpuMoveCounter = 0;
         $('#board .cell').each(function(idx, el) {
             if ($(el).hasClass('cross')) {
                 $(el).removeClass('cross');
@@ -83,6 +66,19 @@ $(document).ready(function() {
         });
         console.log('board prepared for new game');
 
+        if (ttt.isUserPlayedGame) {
+            console.log('CPU has to put a X already');
+            ttt.userPlaysCross = false;
+            ttt.userTurnToMove = false;
+            attack();
+        } else {
+            ttt.userPlaysCross = true;
+            ttt.userTurnToMove = true;
+        }
+
+
+        ttt.userMoveCounter = 0;
+        ttt.cpuMoveCounter = 0;
     }
 
     $('.cell').click(function() {
@@ -97,24 +93,22 @@ $(document).ready(function() {
                 $(this).removeClass('empty');
                 $(this).addClass('cross');
                 ttt.userMoveCounter++;
-                console.log('ttt.userMoveCounter', ttt.userMoveCounter);
 
                 if (checkForWin('cross')) {
                     setTimeout(function() {
                         alert('cross has won');
-                        ttt.isUserPlayedGame = true;
                     }, 100);
                     setTimeout(function() {
-                        setup();
                         ttt.isUserPlayedGame = true;
+                        setup();
                     }, 100);
                 } else if (isAllCellsPlayed()) {
                     setTimeout(function() {
                         alert('draw');
                     }, 100);
                     setTimeout(function() {
-                        setup();
                         ttt.isUserPlayedGame = true;
+                        setup();
                     }, 100);
                 }
 
@@ -132,8 +126,7 @@ $(document).ready(function() {
              */
 
         } else if (ttt.userTurnToMove && !ttt.userPlaysCross) {
-            console.log(ttt.userTurnToMove);
-            console.log(ttt.userPlaysCross);
+
             if ($(this).hasClass('empty')) {
                 $(this).removeClass('empty');
                 $(this).addClass('nought');
@@ -145,21 +138,20 @@ $(document).ready(function() {
 
                     }, 100);
                     setTimeout(function() {
-                        setup();
                         ttt.isUserPlayedGame = false;
+                        setup();
                     }, 100);
                 } else if (isAllCellsPlayed()) {
                     setTimeout(function() {
                         alert('draw');
                     }, 100);
                     setTimeout(function() {
-                        setup();
                         ttt.isUserPlayedGame = false;
+                        setup();
                     }, 100);
                 }
 
             }
-            console.log('a new nought has to be added');
 
             ttt.userTurnToMove = false;
 
@@ -173,18 +165,16 @@ $(document).ready(function() {
 
     function attack() {
         console.log('CPU attacks');
-        console.log('ttt.userTurnToMove', ttt.userTurnToMove);
+
         var opportunityPosition = '';
         var dangerPosition = '';
 
         ttt.cpuMoveCounter++;
-
+        console.log('ttt.cpuMoveCounter', ttt.cpuMoveCounter);
         if (ttt.cpuMoveCounter === 1) {
             if (isCellEmpty('#1')) {
                 makeMove('#1', 'cross');
             }
-        } else {
-            console.log('no idea');
         }
 
         if (ttt.cpuMoveCounter === 2) {
@@ -209,7 +199,6 @@ $(document).ready(function() {
 
             dangerPosition = forkAt('nought');
             opportunityPosition = forkAt('cross');
-            console.log('opportunityPosition', opportunityPosition);
 
             if (opportunityPosition !== -1) {
                 makeMove(opportunityPosition, 'cross');
@@ -239,45 +228,39 @@ $(document).ready(function() {
 
         setTimeout(function() {
             if (checkForWin('cross')) {
-                console.log('checkForWin TRUE');
                 setTimeout(function() {
                     alert('CPU has won');
                 }, 1);
                 setTimeout(function() {
-                    setup();
-
                     ttt.isUserPlayedGame = false;
+                    setup();
                 }, 100);
             } else if (checkForWin('nought')) {
                 setTimeout(function() {
                     alert('user has won');
                 }, 1);
                 setTimeout(function() {
-                    setup();
-
                     ttt.isUserPlayedGame = false;
+                    setup();
                 }, 100);
             } else if (isAllCellsPlayed()) {
                 setTimeout(function() {
                     alert('draw');
                 }, 100);
                 setTimeout(function() {
-                    setup();
-
                     ttt.isUserPlayedGame = false;
+                    setup();
                 }, 100);
             } else {
-                console.log('checkForWin FALSE');
+                console.log('Nobody wins so far!');
             }
         }, 100);
 
         ttt.userTurnToMove = true;
-
-        console.log('ttt.userTurnToMove', ttt.userTurnToMove);
     }
 
     function defend() {
-        console.log('Code plays noughts');
+        console.log('CPU defends');
         var dangerPosition = '';
         var attackPosition = '';
 
@@ -288,7 +271,7 @@ $(document).ready(function() {
             ttt.userMoveCounter === 1) {
             if (isCellEmpty('#5')) {
                 makeMove('#5', 'nought');
-            //ttt.userTurnToMove = true;
+            //              ttt.userTurnToMove = true;
             }
         } else if (($('#4').hasClass('cross') ||
             $('#2').hasClass('cross') ||
@@ -308,7 +291,6 @@ $(document).ready(function() {
 
         if (ttt.userMoveCounter === 2) {
             dangerPosition = forkAt('cross');
-            console.log('position', dangerPosition);
             if (dangerPosition === -1 && ($('#1').hasClass('cross') ||
                 $('#3').hasClass('cross') ||
                 $('#7').hasClass('cross') ||
@@ -323,7 +305,6 @@ $(document).ready(function() {
                     makeMove('#8', 'nought');
                 }
             } else {
-                console.log('danger at', dangerPosition);
                 makeMove(dangerPosition, 'nought');
             }
         }
@@ -333,7 +314,6 @@ $(document).ready(function() {
             attackPosition = forkAt('nought');
 
             if (attackPosition !== -1) {
-                console.log('chance to WIN at ' + attackPosition);
                 makeMove(attackPosition, 'nought');
             } else if (dangerPosition === -1) {
                 if (isCellEmpty('#1')) {
@@ -354,7 +334,6 @@ $(document).ready(function() {
                     makeMove('#8', 'nought');
                 }
             } else {
-                console.log('danger at ' + dangerPosition);
                 makeMove(dangerPosition, 'nought');
             }
         //ttt.userTurnToMove = true;
@@ -362,26 +341,23 @@ $(document).ready(function() {
 
         setTimeout(function() {
             if (checkForWin('nought')) {
-                console.log('checkForWin TRUE');
-                console.log('checkForWin return ', checkForWin('nought'));
                 setTimeout(function() {
                     alert('CPU has won');
                 }, 1);
                 setTimeout(function() {
-                    setup();
                     ttt.isUserPlayedGame = true;
+                    setup();
+
                 }, 100);
             } else if (isAllCellsPlayed()) {
                 setTimeout(function() {
                     alert('draw');
                 }, 100);
                 setTimeout(function() {
-                    setup();
                     ttt.isUserPlayedGame = true;
+                    setup();
+
                 }, 100);
-            } else {
-                console.log('checkForWin FALSE');
-                console.log('checkForWin return ', checkForWin('nought'));
             }
         }, 100);
 
