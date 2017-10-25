@@ -9,8 +9,11 @@ $(document).ready(function() {
         madeMove: false,
         userMoveCounter: 0,
         userPlaysCross: true,
-        cpuMoveCounter: 0
+        cpuMoveCounter: 0,
+        isUserPlayedGame: false
     };
+
+    console.log('userPlaysCross', ttt.userPlaysCross);
     var initialPlayerSelect = function() {
         $("#dialog").dialog({
             closeOnEscape: false,
@@ -49,13 +52,24 @@ $(document).ready(function() {
             }
         });
     };
+
     initialPlayerSelect();
     //setup();
+    console.log('isUserPlayedGame', ttt.isUserPlayedGame);
 
     function setup() {
         //ttt.isUserCross(userStartsFirst);
+        if (ttt.isUserPlayedGame) {
+            ttt.userPlaysCross = false;
+            ttt.userTurnToMove = false;
+            attack();
+        } else {
+            ttt.userPlaysCross = true;
+            ttt.userTurnToMove = true;
+        }
+        console.log('isUserPlayedGame', ttt.isUserPlayedGame);
 
-        //ttt.userTurnToMove = true;
+
         ttt.userMoveCounter = 0;
         ttt.cpuMoveCounter = 0;
         $('#board .cell').each(function(idx, el) {
@@ -68,6 +82,7 @@ $(document).ready(function() {
             $(el).addClass('empty');
         });
         console.log('board prepared for new game');
+
     }
 
     $('.cell').click(function() {
@@ -87,10 +102,11 @@ $(document).ready(function() {
                 if (checkForWin('cross')) {
                     setTimeout(function() {
                         alert('cross has won');
-
+                        ttt.isUserPlayedGame = true;
                     }, 100);
                     setTimeout(function() {
                         setup();
+                        ttt.isUserPlayedGame = true;
                     }, 100);
                 } else if (isAllCellsPlayed()) {
                     setTimeout(function() {
@@ -98,6 +114,7 @@ $(document).ready(function() {
                     }, 100);
                     setTimeout(function() {
                         setup();
+                        ttt.isUserPlayedGame = true;
                     }, 100);
                 }
 
@@ -129,6 +146,7 @@ $(document).ready(function() {
                     }, 100);
                     setTimeout(function() {
                         setup();
+                        ttt.isUserPlayedGame = false;
                     }, 100);
                 } else if (isAllCellsPlayed()) {
                     setTimeout(function() {
@@ -136,6 +154,7 @@ $(document).ready(function() {
                     }, 100);
                     setTimeout(function() {
                         setup();
+                        ttt.isUserPlayedGame = false;
                     }, 100);
                 }
 
@@ -226,6 +245,8 @@ $(document).ready(function() {
                 }, 1);
                 setTimeout(function() {
                     setup();
+
+                    ttt.isUserPlayedGame = false;
                 }, 100);
             } else if (checkForWin('nought')) {
                 setTimeout(function() {
@@ -233,6 +254,8 @@ $(document).ready(function() {
                 }, 1);
                 setTimeout(function() {
                     setup();
+
+                    ttt.isUserPlayedGame = false;
                 }, 100);
             } else if (isAllCellsPlayed()) {
                 setTimeout(function() {
@@ -240,6 +263,8 @@ $(document).ready(function() {
                 }, 100);
                 setTimeout(function() {
                     setup();
+
+                    ttt.isUserPlayedGame = false;
                 }, 100);
             } else {
                 console.log('checkForWin FALSE');
@@ -344,6 +369,15 @@ $(document).ready(function() {
                 }, 1);
                 setTimeout(function() {
                     setup();
+                    ttt.isUserPlayedGame = true;
+                }, 100);
+            } else if (isAllCellsPlayed()) {
+                setTimeout(function() {
+                    alert('draw');
+                }, 100);
+                setTimeout(function() {
+                    setup();
+                    ttt.isUserPlayedGame = true;
                 }, 100);
             } else {
                 console.log('checkForWin FALSE');
