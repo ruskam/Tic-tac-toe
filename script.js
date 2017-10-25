@@ -66,6 +66,9 @@ $(document).ready(function() {
         });
         console.log('board prepared for new game');
 
+        ttt.userMoveCounter = 0;
+        ttt.cpuMoveCounter = 0;
+
         if (ttt.isUserPlayedGame) {
             console.log('CPU has to put a X already');
             ttt.userPlaysCross = false;
@@ -77,8 +80,7 @@ $(document).ready(function() {
         }
 
 
-        ttt.userMoveCounter = 0;
-        ttt.cpuMoveCounter = 0;
+
     }
 
     $('.cell').click(function() {
@@ -349,7 +351,7 @@ $(document).ready(function() {
                     setup();
 
                 }, 100);
-            } else if (isAllCellsPlayed()) {
+            } /*else if (isAllCellsPlayed()) {
                 setTimeout(function() {
                     alert('draw');
                 }, 100);
@@ -358,7 +360,7 @@ $(document).ready(function() {
                     setup();
 
                 }, 100);
-            }
+            }*/
         }, 100);
 
         ttt.userTurnToMove = true;
