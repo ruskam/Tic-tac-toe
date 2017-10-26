@@ -223,6 +223,12 @@ $(document).ready(function() {
                         makeMove('#6', 'cross');
                     } else if (isCellEmpty('#8')) {
                         makeMove('#8', 'cross');
+                    } else if (isCellEmpty('#3')) {
+                        makeMove('#3', 'cross');
+                    } else if (isCellEmpty('#7')) {
+                        makeMove('#7', 'cross');
+                    } else if (isCellEmpty('#9')) {
+                        makeMove('#9', 'cross');
                     }
                 }
             }
