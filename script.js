@@ -30,11 +30,13 @@ $(document).ready(function() {
 
                     $(this).dialog("close");
                     ttt.userTurnToMove = true;
+                    $('#player').text('You start...');
                 },
                 "Play O": function() {
                     $(this).dialog("close");
                     ttt.userTurnToMove = false;
                     ttt.userPlaysCross = false;
+                    $('#player').text('Computer starts...');
                     attack();
                 }
             },

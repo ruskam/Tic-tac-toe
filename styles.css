@@ -17,11 +17,11 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 
 #board {
-    margin-top: 30px;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -66,6 +66,16 @@ body {
 
 #dialog {
     display: none;
+}
+
+#player {
+    color: white;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.score-numbers {
+    color: white;
 }
 
 .freeze-all-cells {
