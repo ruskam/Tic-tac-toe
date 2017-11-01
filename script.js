@@ -9,7 +9,9 @@ $(document).ready(function() {
         userMoveCounter: 0,
         userPlaysCross: true,
         cpuMoveCounter: 0,
-        isUserPlayedGame: false
+        isUserPlayedGame: false,
+        victoriesCpu: 0,
+        victoriesUser: 0
     };
 
 
@@ -30,13 +32,13 @@ $(document).ready(function() {
 
                     $(this).dialog("close");
                     ttt.userTurnToMove = true;
-                    $('#player').text('You start...');
+                    $('#player').text('User starts');
                 },
                 "Play O": function() {
                     $(this).dialog("close");
                     ttt.userTurnToMove = false;
                     ttt.userPlaysCross = false;
-                    $('#player').text('Computer starts...');
+                    $('#player').text('Computer starts');
                     attack();
                 }
             },
@@ -72,7 +74,7 @@ $(document).ready(function() {
         ttt.cpuMoveCounter = 0;
 
         if (ttt.isUserPlayedGame) {
-            console.log('CPU has to put a X already');
+            console.log('Computer has to put a X already');
             ttt.userPlaysCross = false;
             ttt.userTurnToMove = false;
             attack();
@@ -100,15 +102,16 @@ $(document).ready(function() {
 
                 if (checkForWin('cross')) {
                     setTimeout(function() {
-                        alert('cross has won');
+                        alert('User has won');
                     }, 100);
                     setTimeout(function() {
                         ttt.isUserPlayedGame = true;
                         setup();
+                        ttt.victoriesUser++;
                     }, 100);
                 } else if (isAllCellsPlayed()) {
                     setTimeout(function() {
-                        alert('draw');
+                        alert('Draw');
                     }, 100);
                     setTimeout(function() {
                         ttt.isUserPlayedGame = true;
@@ -120,7 +123,7 @@ $(document).ready(function() {
             ttt.userTurnToMove = false;
 
             ttt.madeMove = true;
-            /* Here is where CPU defends itself agains the user */
+            /* Here is where Computer defends itself agains the user */
             if (ttt.madeMove && !ttt.userTurnToMove) {
                 defend();
             }
@@ -138,16 +141,17 @@ $(document).ready(function() {
 
                 if (checkForWin('nought')) {
                     setTimeout(function() {
-                        alert('nought has won');
+                        alert('Computer has won');
 
                     }, 100);
                     setTimeout(function() {
                         ttt.isUserPlayedGame = false;
                         setup();
+                        ttt.victoriesUser++;
                     }, 100);
                 } else if (isAllCellsPlayed()) {
                     setTimeout(function() {
-                        alert('draw');
+                        alert('Draw');
                     }, 100);
                     setTimeout(function() {
                         ttt.isUserPlayedGame = false;
@@ -160,7 +164,7 @@ $(document).ready(function() {
             ttt.userTurnToMove = false;
 
             ttt.madeMove = true;
-            /* Here is where CPU defends itself agains the user */
+            /* Here is where Computer defends itself agains the user */
             if (ttt.madeMove && !ttt.userTurnToMove) {
                 attack();
             }
@@ -168,7 +172,7 @@ $(document).ready(function() {
     });
 
     function attack() {
-        console.log('CPU attacks');
+        console.log('Computer attacks');
 
         var opportunityPosition = '';
         var dangerPosition = '';
@@ -239,23 +243,28 @@ $(document).ready(function() {
         setTimeout(function() {
             if (checkForWin('cross')) {
                 setTimeout(function() {
-                    alert('CPU has won');
+                    alert('Computer has won');
                 }, 1);
                 setTimeout(function() {
                     ttt.isUserPlayedGame = false;
                     setup();
+                    ttt.victoriesCpu++;
+                    $('#cpu-score').text(ttt.victoriesCpu);
                 }, 100);
             } else if (checkForWin('nought')) {
                 setTimeout(function() {
-                    alert('user has won');
+                    alert('User has won');
                 }, 1);
                 setTimeout(function() {
                     ttt.isUserPlayedGame = false;
                     setup();
+                    ttt.victoriesUser++;
+                    $('#user-score').text(ttt.victoriesUser);
+
                 }, 100);
             } else if (isAllCellsPlayed()) {
                 setTimeout(function() {
-                    alert('draw');
+                    alert('Draw');
                 }, 100);
                 setTimeout(function() {
                     ttt.isUserPlayedGame = false;
@@ -270,7 +279,7 @@ $(document).ready(function() {
     }
 
     function defend() {
-        console.log('CPU defends');
+        console.log('Computer defends');
         var dangerPosition = '';
         var attackPosition = '';
 
@@ -352,12 +361,13 @@ $(document).ready(function() {
         setTimeout(function() {
             if (checkForWin('nought')) {
                 setTimeout(function() {
-                    alert('CPU has won');
+                    alert('Computer has won');
                 }, 1);
                 setTimeout(function() {
                     ttt.isUserPlayedGame = true;
                     setup();
-
+                    ttt.victoriesCpu++;
+                    $('#cpu-score').text(ttt.victoriesCpu);
                 }, 100);
             } /*else if (isAllCellsPlayed()) {
                 setTimeout(function() {
