@@ -77,10 +77,12 @@ $(document).ready(function() {
             console.log('Computer has to put a X already');
             ttt.userPlaysCross = false;
             ttt.userTurnToMove = false;
+            $('#player').text('Computer starts');
             attack();
         } else {
             ttt.userPlaysCross = true;
             ttt.userTurnToMove = true;
+            $('#player').text('User starts');
         }
 
 
@@ -173,7 +175,6 @@ $(document).ready(function() {
 
     function attack() {
         console.log('Computer attacks');
-
         var opportunityPosition = '';
         var dangerPosition = '';
 
