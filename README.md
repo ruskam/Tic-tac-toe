@@ -1,2 +1,2 @@
 # Tic-tac-toe
-Tic-tac-toe game. Currently in progress...
+Tic-tac-toe game. 
